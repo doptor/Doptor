@@ -6,9 +6,9 @@ class NewsletterSubscriber extends Eloquent
 {
     protected $table = 'mdl_newsletter_subscribers';
 
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
-    protected $fillable = array('name', 'email');
+    protected $fillable = ['name', 'email'];
 
     public function alias($name, $field_name='alias')
     {

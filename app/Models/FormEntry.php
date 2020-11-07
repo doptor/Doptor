@@ -13,13 +13,13 @@ use Robbo\Presenter\PresentableInterface;
 use Services\Validation\ValidationException as ValidationException;
 
 class FormEntry extends Eloquent implements PresentableInterface {
-	protected $fillable = array('form_id', 'fields', 'data');
+	protected $fillable = ['form_id', 'fields', 'data'];
 
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
     protected $table = 'form_entries';
 
-    public static function create(array $attributes = array())
+    public static function create(array $attributes = [])
     {
         // dd($attributes);
         static::isValid($attributes);
@@ -48,9 +48,9 @@ class FormEntry extends Eloquent implements PresentableInterface {
 
     public static function isValid($attributes)
     {
-        $rules = array();
+        $rules = [];
 
-        $messages = array();
+        $messages = [];
 
         if (isset($attributes['captcha'])) {
             $rules['captcha'] = 'required|captcha';

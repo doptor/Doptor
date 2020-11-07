@@ -48,10 +48,10 @@ class AuthController extends BaseController {
     {
         $input = Input::all();
 
-        $credentials = array(
+        $credentials = [
             'login' => $input['username'],
             'password' => $input['password']
-        );
+        ];
 
         $remember = (isset($input['remember']) && $input['remember'] == 'checked') ? true : false;
 
@@ -60,34 +60,34 @@ class AuthController extends BaseController {
 
             if ($user) {
                 if (isset($input['api'])) {
-                    return Response::json(array(), 200);
+                    return Response::json([], 200);
                 } else {
                     return Redirect::intended($target);
                 }
             }
         } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
             if (isset($input['api'])) {
-                return Response::json(array(
+                return Response::json([
                                         'error' => trans('users.check_activation_email')
-                                        ), 200);
+                                        ], 200);
             } else {
                 return Redirect::back()
                                     ->withErrors(trans('users.check_activation_email'));
             }
         } catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
             if (isset($input['api'])) {
-                return Response::json(array(
-                                        'error' => trans('users.account_suspended', array('minutes' => 10))
-                                        ), 200);
+                return Response::json([
+                                        'error' => trans('users.account_suspended', ['minutes' => 10])
+                                        ], 200);
             } else {
                 return Redirect::back()
-                                    ->withErrors(trans('users.account_suspended', array('minutes' => 10)));
+                                    ->withErrors(trans('users.account_suspended', ['minutes' => 10]));
             }
         } catch(Exception $e) {
             if (isset($input['api'])) {
-                return Response::json(array(
+                return Response::json([
                                         'error' => trans('users.invalid_username_pw')
-                                        ), 200);
+                                        ], 200);
             } else {
                 return Redirect::back()
                                     ->withErrors(trans('users.invalid_username_pw'));
@@ -120,10 +120,10 @@ class AuthController extends BaseController {
 
                 $resetCode = $user->getResetPasswordCode();
 
-                $data = array(
+                $data = [
                             'user_id'   => $user->id,
                             'resetCode' => $resetCode
-                        );
+                        ];
 
                 Mail::queue('backend.'.$this->current_theme.'.reset_password_email', $data, function($message) use($input, $user) {
                     $message->from(get_setting('email_username'), Setting::value('website_name'))
@@ -163,9 +163,9 @@ class AuthController extends BaseController {
                                                 ->with('user', $user);
             } else {
                 $this->layout->content = View::make($target . '.'.$this->current_theme.'.reset_password')
-                                                ->withErrors(array(
+                                                ->withErrors([
                                                         'invalid_reset_code'=>'The provided password reset code is invalid'
-                                                    ));
+                                                    ]);
             }
         } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
             $this->layout->content = View::make($target . '.'.$this->current_theme.'.reset_password')
@@ -191,10 +191,10 @@ class AuthController extends BaseController {
             if ($user->checkResetPasswordCode($input['token'])) {
                 if ($user->attemptResetPassword($input['token'], $input['password'])) {
 
-                    $data = array(
+                    $data = [
                             'user_id'      => $user->id,
                             'created_at' => strtotime($user->created_at) * 1000
-                        );
+                        ];
 
                     Mail::queue('backend.'.$this->current_theme.'.reset_password_confirm_email', $data, function($message) use($input, $user) {
                         $message->from(get_setting('email_username'), Setting::value('website_name'))
@@ -213,9 +213,9 @@ class AuthController extends BaseController {
                 }
             } else {
                 return Redirect::back()
-                                    ->withErrors(array(
+                                    ->withErrors([
                                             'invalid_reset_code'=>'The provided password reset code is invalid'
-                                        ));
+                                        ]);
             }
         } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
             return Redirect::back()

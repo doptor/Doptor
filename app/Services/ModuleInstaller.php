@@ -10,6 +10,7 @@ License : GNU/GPL, visit LICENSE.txt
 Description :  Doptor is Opensource CMS.
 ===================================================
 */
+use Database\Seeders\DatabaseSeeder;
 use Artisan;
 use DB;
 use Exception;
@@ -200,7 +201,7 @@ class ModuleInstaller {
         $models = (isset($this->config['models'])) ? json_encode($this->config['models']) : '';
         $form_fields = (isset($this->config['form_fields'])) ? json_encode($this->config['form_fields']) : '';
 
-        $input = array(
+        $input = [
             'name'        => $this->config['info']['name'],
             'alias'       => $this->config['info']['alias'],
             'hash'        => $this->config['info']['hash'],
@@ -215,7 +216,7 @@ class ModuleInstaller {
             'table'       => $table,
             'migrations'  => $this->config['migrations'],
             'enabled'     => true
-        );
+        ];
 
         return $input;
     }
@@ -277,7 +278,7 @@ class ModuleInstaller {
             $vendor = '';
         }
         $alter_sql = "ALTER TABLE mdl_{$vendor}_{$form['table']} ";
-        $add_columns = array();
+        $add_columns = [];
         $previous_field = 'id';
 
         foreach ($form['fields'] as $field) {
@@ -349,7 +350,7 @@ class ModuleInstaller {
             foreach (File::files($seed_dir) as $file) {
                 require_once($file);
             }
-            $seeder = new \DatabaseSeeder;
+            $seeder = new DatabaseSeeder;
             $seeder->run();
         }
     }
@@ -362,7 +363,7 @@ class ModuleInstaller {
     public function addToBuiltForms()
     {
         $forms = ['forms'];
-        $form_ids = array();
+        $form_ids = [];
 
         foreach ($forms as $form) {
             if (!isset($form['data'])) {
@@ -376,13 +377,13 @@ class ModuleInstaller {
             if ($existing_form_category) {
                 $form_category = $existing_form_category->id;
             } else {
-                $category = FormCategory::create(array(
+                $category = FormCategory::create([
                         'name' => $form['category']
-                    ));
+                    ]);
                 $form_category = $category->id;
             }
 
-            $form_data = array(
+            $form_data = [
                     'name'         => $form['form_name'],
                     'hash'         => $form['hash'],
                     'description'  => $form['description'],
@@ -393,7 +394,7 @@ class ModuleInstaller {
                     'extra_code'   => $form['extra_code'],
                     'redirect_to'  => $form['redirect_to'],
                     'email'        => $form['email']
-                );
+                ];
 
             if ($existing_form) {
                 $existing_form->update($form_data);
@@ -422,7 +423,7 @@ class ModuleInstaller {
         $table_names = array_pluck($module['forms'], 'table');
         $table_name = implode('|', $table_names);
 
-        $module_info = array(
+        $module_info = [
                 'name'        => $module['info']['name'],
                 'hash'        => $module['info']['hash'],
                 'alias'       => $module['info']['alias'],
@@ -433,7 +434,7 @@ class ModuleInstaller {
                 'form_id'     => implode(', ', $form_ids),
                 'target'      => $module['target'],
                 'table_name'  => $table_name,
-            );
+            ];
 
         if ($existing_module) {
             $existing_module->update($module_info);

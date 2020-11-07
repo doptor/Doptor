@@ -16,7 +16,7 @@ class ContactEmail extends Eloquent {
 
     protected $table = 'contact_emails';
 
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
     public function contact()
     {

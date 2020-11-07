@@ -17,26 +17,26 @@ class CategoryValidator extends Validator {
      * Default rules
      * @var array
      */
-    protected $rules = array(
+    protected $rules = [
         'name'     => 'required|unique:categories,name',
         'alias' => 'alpha_spaces|unique:categories,alias',
-    );
+    ];
 
     /**
      * Default rules for update
      * @var array
      */
-    protected $updateRules = array(
+    protected $updateRules = [
         'name'     => 'required|unique:categories,name',
         'alias' => 'alpha_spaces|unique:categories,alias',
-    );
+    ];
 
     /**
      * Messages for validation
      * @var array
      */
-    protected $message = array(
-    );
+    protected $message = [
+    ];
 
     public function validateForUpdate($input)
     {

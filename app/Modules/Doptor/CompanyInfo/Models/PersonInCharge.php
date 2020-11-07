@@ -17,7 +17,7 @@ class PersonInCharge extends Eloquent {
 
     protected $table = 'mdl_doptor_incharges';
 
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
     /**
      * Get all of the owning inchargable models.

@@ -16,5 +16,5 @@ class ReportGenerator extends Eloquent {
 
     protected $table = 'report_generators';
 
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 }

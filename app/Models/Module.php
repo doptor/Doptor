@@ -21,13 +21,13 @@ class Module extends Model implements PresentableInterface {
      */
     protected $table = 'modules';
 
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
-    public static $rules = array(
+    public static $rules = [
             'name'    => 'alpha_spaces|required|unique:modules,name',
             'version' => 'required',
             'author'  => 'required'
-        );
+        ];
 
     /**
      * Validation during create/update of modules

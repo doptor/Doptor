@@ -20,7 +20,7 @@ class BuiltModulePresenter extends Presenter
     {
         $selected_forms = explode(", ", $this->form_id);
 
-        $forms = array();
+        $forms = [];
         foreach ($selected_forms as $form_id) {
             $form = BuiltForm::find($form_id);
             if ($form) {

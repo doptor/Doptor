@@ -49,10 +49,10 @@ class HomeController extends BaseController {
     {
         $input = Input::all();
 
-        $rules = array(
+        $rules = [
                 'email' => 'required|min:5|email',
                 'name' => 'required|alpha|min:5',
-            );
+            ];
 
         $validator = Validator::make(Input::all(), $rules);
 

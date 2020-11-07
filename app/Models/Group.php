@@ -10,7 +10,7 @@ Description :  Doptor is Opensource CMS.
 ===================================================
 */
 class Group extends Eloquent {
-	protected $guarded = array();
+	protected $guarded = [];
 
 	/**
 	 * The database table used by the model.
@@ -19,9 +19,9 @@ class Group extends Eloquent {
 	 */
 	protected $table = 'groups';
 
-    public static $rules = array(
+    public static $rules = [
             'name'     => 'alpha_spaces|required|unique:groups,name'
-        );
+        ];
 
     /**
      * Validation during create/update of groups

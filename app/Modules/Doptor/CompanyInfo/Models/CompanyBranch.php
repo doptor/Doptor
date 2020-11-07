@@ -17,8 +17,8 @@ class CompanyBranch extends Eloquent {
 
     protected $table = 'mdl_doptor_company_branches';
 
-    protected $fillable = array('name', 'reg_no', 'country_id', 'address', 'website', 'phone', 'fax', 'mobile', 'email', 'company_id');
-    protected $guarded = array('id');
+    protected $fillable = ['name', 'reg_no', 'country_id', 'address', 'website', 'phone', 'fax', 'mobile', 'email', 'company_id'];
+    protected $guarded = ['id'];
 
     /**
      * A company branch can belong to one country

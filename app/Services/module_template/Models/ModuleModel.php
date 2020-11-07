@@ -17,8 +17,8 @@ class ModuleModel extends Eloquent {
 
 	protected $table = 'table_name';
 
-	protected $fillable = array(table_fields, 'captcha');
-	protected $guarded = array('id');
+	protected $fillable = [table_fields, 'captcha'];
+	protected $guarded = ['id'];
 
     public static function boot()
     {
@@ -45,9 +45,9 @@ class ModuleModel extends Eloquent {
     {
         $entry = $this->toArray();
 
-        $rules = array();
+        $rules = [];
 
-        $messages = array();
+        $messages = [];
 
         if (isset($entry['captcha'])) {
             $rules['captcha'] = 'required|captcha';

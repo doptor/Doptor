@@ -11,6 +11,7 @@ License : GNU/GPL, visit LICENSE.txt
 Description :  Doptor is Opensource CMS.
 ===================================================
 */
+use Database\Seeders\MenuPositionTableSeeder;
 use Artisan, App, DB, Event, Exception, Input, Str, View, Redirect, Response, Validator;
 use Group;
 use Sentry;
@@ -57,16 +58,16 @@ class Installer {
 
     public function dbMigrate($input)
     {
-        $rules = array(
+        $rules = [
                 'username'              => 'required',
                 'email'                 => 'required|email',
                 'first_name'            => 'required',
                 'last_name'             => 'required',
                 'password'              => 'required|min:6|confirmed',
                 'password_confirmation' => 'required|min:6',
-            );
+            ];
 
-        $messages = array();
+        $messages = [];
 
         $validation = Validator::make($input, $rules, $messages);
 
@@ -74,7 +75,7 @@ class Installer {
             return $this->listener->validationErrors($validation->messages());
         }
 
-        $env = array('TIME_ZONE' => $input['time_zone']);
+        $env = ['TIME_ZONE' => $input['time_zone']];
         $this->setEnvironmentVariables($env);
 
         try {
@@ -131,14 +132,14 @@ class Installer {
             return $this->listener->installerFails('PHP version must be at least 5.5.9');
         }
 
-        $required_extensions = array(
+        $required_extensions = [
                 'fileinfo',
                 'curl',
                 'zip',
                 'openssl',
                 'mbstring',
                 'tokenizer'
-            );
+            ];
 
         foreach ($required_extensions as $extension) {
             if (!extension_loaded($extension)) {
@@ -153,25 +154,25 @@ class Installer {
      */
     public function createSuperAdmin($input)
     {
-        $user = Sentry::createUser(array(
+        $user = Sentry::createUser([
             'username'   => $input['username'],
             'email'      => $input['email'],
             'password'   => $input['password'],
             'first_name' => $input['first_name'],
             'last_name'  => $input['last_name'],
             'activated'  => 1,
-        ));
+        ]);
 
         $group_exists = Group::where('name', 'Super Administrators')->first();
 
         if (!$group_exists) {
             // Create the group only if it doesn't already exist
-            $group = Sentry::createGroup(array(
+            $group = Sentry::createGroup([
                 'name'        => 'Super Administrators',
-                'permissions' => array(
+                'permissions' => [
                     'superuser' => 1
-                ),
-            ));
+                ],
+            ]);
         }
 
         // Assign user permissions

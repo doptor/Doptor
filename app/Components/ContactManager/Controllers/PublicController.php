@@ -88,11 +88,11 @@ class PublicController extends BackendController {
     {
         $input = Input::all();
 
-        $rules = array(
+        $rules = [
                 'email'   => 'required|min:5|email',
                 'name'    => 'required|alpha_spaces|min:3',
                 'message' => 'required'
-            );
+            ];
 
         $validator = Validator::make(Input::all(), $rules);
 
@@ -106,13 +106,13 @@ class PublicController extends BackendController {
         $model_name = "Components\\ContactManager\\Models\\{$form['model']}";
         $contact = $model_name::whereAlias($alias)->first();
 
-        ContactEmail::create(array(
+        ContactEmail::create([
                 'name'       => $input['name'],
                 'email'      => $input['email'],
                 'subject'    => $input['subject'],
                 'message'    => $input['message'],
                 'contact_id' => $contact->id
-            ));
+            ]);
 
         $input['message_text'] = $input['message'];
 

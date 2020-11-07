@@ -27,14 +27,14 @@ class AppServiceProvider extends ServiceProvider {
     {
         $this->app->bind(
             'Illuminate\Contracts\Auth\Registrar',
-            'App\Services\Registrar'
+            \App\Services\Registrar::class
         );
 
         if ($this->app->environment() == 'local') {
             $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
         }
 
-        ClassLoader::addDirectories(array(
+        ClassLoader::addDirectories([
 
             app_path().'/commands',
             app_path().'/controllers',
@@ -43,12 +43,12 @@ class AppServiceProvider extends ServiceProvider {
             app_path().'/services/Validation',
             app_path().'/database/seeds',
 
-        ));
+        ]);
 
         // Autoload all components
-        $components = array('posts', 'MediaManager', 'theme_manager');
+        $components = ['posts', 'MediaManager', 'theme_manager'];
         foreach ($components as $component) {
-            ClassLoader::addDirectories(array(
+            ClassLoader::addDirectories([
                 app_path().'/Components/'.$component,
                 app_path().'/Components/'.$component.'/controllers',
                 app_path().'/Components/'.$component.'/controllers/backend',
@@ -59,7 +59,7 @@ class AppServiceProvider extends ServiceProvider {
                 app_path().'/Components/'.$component.'/services',
                 app_path().'/Components/'.$component.'/validation',
                 app_path().'/Components/'.$component.'/views',
-            ));
+            ]);
         }
     }
 

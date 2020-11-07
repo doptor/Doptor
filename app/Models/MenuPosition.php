@@ -17,12 +17,12 @@ class MenuPosition extends Eloquent {
      */
     protected $table = 'menu_positions';
 
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
-    public static $rules = array(
+    public static $rules = [
             'name'  => 'alpha_spaces|required|unique:menu_positions,name',
             'alias' => 'unique:menu_positions,alias',
-        );
+        ];
 
     /**
      * Relation with menus table

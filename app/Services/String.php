@@ -35,9 +35,9 @@ class String {
         // Check to see if Tidy is available.
         if(class_exists('tidy')) {
             $tidy = new tidy();
-            return  $tidy->repairString($value, array(
+            return  $tidy->repairString($value, [
                 'show-body-only' => true,
-            ));
+            ]);
         } else { // No Tidy, Time for regex and possibly a broken DOM :(
             preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $value, $result);
             $openedtags = $result[1];

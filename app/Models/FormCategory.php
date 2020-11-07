@@ -16,11 +16,11 @@ class FormCategory extends Eloquent {
      * @var string
      */
     protected $table = 'form_categories';
-	protected $guarded = array();
+	protected $guarded = [];
 
-	public static $rules = array(
+	public static $rules = [
             'name' => 'alpha_spaces|required|unique:form_categories,name'
-        );
+        ];
 
     /**
      * Relation with built_forms table
@@ -45,7 +45,7 @@ class FormCategory extends Eloquent {
      */
     public static function all_categories()
     {
-        $ret = array('Select Category');
+        $ret = ['Select Category'];
         foreach (FormCategory::all() as $form_cat) {
             $ret[$form_cat->id] = $form_cat->name;
         }

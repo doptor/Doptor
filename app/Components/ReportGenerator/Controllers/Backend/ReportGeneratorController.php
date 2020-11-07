@@ -72,14 +72,14 @@ class ReportGeneratorController extends BaseController {
 
         $contents = file_get_contents(temp_path() . "/report_generator.json");
         $report_info = json_decode($contents, true);
-        $input = array(
+        $input = [
                     'name'           => $report_info['name'],
                     'author'         => $report_info['author'],
                     'version'        => $report_info['version'],
                     'website'        => $report_info['website'],
                     'modules'        => json_encode($report_info['modules']),
                     'show_calendars' => $report_info['show_calendars']
-                );
+                ];
 
         if ($report_generator = ReportGenerator::where('name', '=', $input['name'])->first()) {
             $report_generator->update($input);
@@ -102,7 +102,7 @@ class ReportGeneratorController extends BaseController {
             }
             $selected_ids = explode(' ', $selected_ids);
         } else {
-            $selected_ids = array($id);
+            $selected_ids = [$id];
         }
 
         foreach ($selected_ids as $id) {
@@ -183,8 +183,8 @@ class ReportGeneratorController extends BaseController {
         $output = '';
         $output = fopen('php://output', 'w');
 
-        fputcsv($output, array(get_setting('company_name')));
-        fputcsv($output, array($generator->name));
+        fputcsv($output, [get_setting('company_name')]);
+        fputcsv($output, [$generator->name]);
 
         $date_info = '';
         if ($input['start_date'] != '') {
@@ -196,7 +196,7 @@ class ReportGeneratorController extends BaseController {
             $date_info .= " To: {$input['end_date']}";
         }
 
-        fputcsv($output, array($date_info));
+        fputcsv($output, [$date_info]);
 
         $modules = $this->getModules($generator->modules, $input);
 
@@ -205,7 +205,7 @@ class ReportGeneratorController extends BaseController {
             fputcsv($output, $module['required_fields']);
 
             foreach ($module['entries'] as $entry) {
-                $fields = array();
+                $fields = [];
                 foreach ($module['required_fields'] as $field => $name) {
                     $fields[] = $entry->{$field};
                 }
@@ -214,16 +214,16 @@ class ReportGeneratorController extends BaseController {
         }
 
         $footer = 'Printed by: '.current_user()->username.' on '. date('Y-m-d h:m:i');
-        fputcsv($output, array($footer));
+        fputcsv($output, [$footer]);
 
         fclose($output);
         $csv = ob_get_clean();
 
         $filename = ($generator->name!='') ? Str::slug($generator->name, '_') : Str::slug($module->name, '_');
-        $headers = array(
+        $headers = [
             'Content-Type'        => 'text/csv',
             'Content-Disposition' => 'attachment; filename="'.$filename.'.csv"'
-        );
+        ];
 
         return Response::make(rtrim($csv, "\n"), 200, $headers);
     }
@@ -240,12 +240,12 @@ class ReportGeneratorController extends BaseController {
         $input['start_date'] = preg_replace('/ \d+:.*$/', '', $input['start_date']);
         $input['end_date'] = preg_replace('/ \d+:.*$/', '', $input['end_date']);
 
-        $data = array(
+        $data = [
                 'title'   => $generator->name,
                 'modules' => $modules,
                 'input'   => $input,
                 'isPdf'   => false
-            );
+            ];
 
         $filename = ($generator->name!='') ? Str::slug($generator->name, '_') : Str::slug($module->name, '_');
 
@@ -265,12 +265,12 @@ class ReportGeneratorController extends BaseController {
         $input['start_date'] = preg_replace('/ \d+:.*$/', '', $input['start_date']);
         $input['end_date'] = preg_replace('/ \d+:.*$/', '', $input['end_date']);
 
-        $data = array(
+        $data = [
                 'title'   => $generator->name,
                 'modules' => $modules,
                 'input'   => $input,
                 'isPdf'   => false
-            );
+            ];
 
         return View::make('report_generators::print', $data);
     }
@@ -290,7 +290,7 @@ class ReportGeneratorController extends BaseController {
                 $modules[$i]['entries'] = $this->moduleEntries($input, $module);
             }
         } else {
-            $modules = array();
+            $modules = [];
         }
         return $modules;
     }

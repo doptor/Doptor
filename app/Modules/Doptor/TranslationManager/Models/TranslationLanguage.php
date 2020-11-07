@@ -22,15 +22,15 @@ use Modules\Doptor\TranslationManager\Presenters\TranslationManagerPresenter;
 class TranslationLanguage extends Eloquent implements PresentableInterface {
     protected $table = 'translation_languages';
 
-    protected $fillable = array();
-    protected $guarded = array('id');
+    protected $fillable = [];
+    protected $guarded = ['id'];
 
     /**
      * Create a new slide
      * @param array $attributes
      * @return void
      */
-    public static function create(array $attributes = array())
+    public static function create(array $attributes = [])
     {
         App::make('Modules\\Doptor\\TranslationManager\\Validation\\LanguageValidator')->validateForCreation($attributes);
 
@@ -42,7 +42,7 @@ class TranslationLanguage extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public function update(array $attributes = array(), array $options = array())
+    public function update(array $attributes = [], array $options = [])
     {
         App::make('Modules\\Doptor\\TranslationManager\\Validation\\LanguageValidator')->validateForUpdate($attributes);
 

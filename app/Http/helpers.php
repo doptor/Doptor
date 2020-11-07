@@ -155,7 +155,7 @@ function current_section()
 {
     if (Schema::hasTable('themes') && Theme::all()->count() == 0) {
         // If for some reason, there are no themes in theme table, seed with the default data
-        Artisan::call('db:seed', array('ThemesTableSeeder'));
+        Artisan::call('db:seed', ['ThemesTableSeeder']);
     }
     if (Request::is('backend*') || Request::is('login/backend*')) {
         $link_type = 'backend';
@@ -173,7 +173,7 @@ function current_section()
         $theme = current_theme('public');
         $layout = "public.{$theme}._layouts._layout";
     }
-    return array($link_type, $link, $layout, $theme);
+    return [$link_type, $link, $layout, $theme];
 }
 
 /**
@@ -228,14 +228,14 @@ function can_user_access_company($company_id)
  * @param   $menus
  * @return  boolean
  */
-function can_access_menu($user, $menus=array())
+function can_access_menu($user, $menus=[])
 {
     $menus = (array)$menus;
 
     // Get the user permissions
     $permissions = $user->getMergedPermissions();
 
-    $access_areas = array();
+    $access_areas = [];
     foreach ($menus as $menu) {
         foreach ($permissions as $permission=>$value) {
             if (str_contains("{$permission}.", $menu)) {
@@ -260,14 +260,14 @@ function timezoneList()
     $timezoneIdentifiers = DateTimeZone::listIdentifiers();
     $utcTime = new DateTime('now', new DateTimeZone('UTC'));
 
-    $tempTimezones = array();
+    $tempTimezones = [];
     foreach ($timezoneIdentifiers as $timezoneIdentifier) {
         $currentTimezone = new DateTimeZone($timezoneIdentifier);
 
-        $tempTimezones[] = array(
+        $tempTimezones[] = [
             'offset' => (int)$currentTimezone->getOffset($utcTime),
             'identifier' => $timezoneIdentifier
-        );
+        ];
     }
 
     // Sort the array by offset,identifier ascending
@@ -277,7 +277,7 @@ function timezoneList()
             : $a['offset'] - $b['offset'];
     });
 
-    $timezoneList = array();
+    $timezoneList = [];
     foreach ($tempTimezones as $tz) {
         $sign = ($tz['offset'] > 0) ? '+' : '-';
         $offset = gmdate('H:i', abs($tz['offset']));
@@ -330,7 +330,7 @@ function Zip($source, $destination, $include_dir = true)
 
         foreach ($files as $file) {
             // Ignore "." and ".." folders
-            if (in_array(substr($file, strrpos($file, DIRECTORY_SEPARATOR) + 1), array('.', '..', ':')))
+            if (in_array(substr($file, strrpos($file, DIRECTORY_SEPARATOR) + 1), ['.', '..', ':']))
                 continue;
 
             $file = realpath($file);

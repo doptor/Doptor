@@ -17,25 +17,25 @@ class ContactValidator extends Validator {
      * Default rules
      * @var array
      */
-    protected $rules = array(
+    protected $rules = [
         'name'       => 'required',
-    );
+    ];
 
     /**
      * Default rules for update
      * @var array
      */
-    protected $updateRules = array(
+    protected $updateRules = [
         'name'       => 'required',
-    );
+    ];
 
     /**
      * Messages for validation
      * @var array
      */
-    protected $message = array(
+    protected $message = [
         'alias.unique' => 'The alias has already been taken'
-    );
+    ];
 
     public function validateForCreation($input)
     {

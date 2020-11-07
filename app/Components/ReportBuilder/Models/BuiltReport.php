@@ -20,11 +20,11 @@ class BuiltReport extends Eloquent implements PresentableInterface {
 
     protected $table = 'built_reports';
 
-    protected $fillable = array('name', 'author', 'version', 'website', 'modules', 'show_calendars', 'created_by', 'updated_by');
+    protected $fillable = ['name', 'author', 'version', 'website', 'modules', 'show_calendars', 'created_by', 'updated_by'];
 
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
-    public static function create(array $attributes = array())
+    public static function create(array $attributes = [])
     {
         $attributes['modules'] = json_encode($attributes['modules']);
         $attributes['created_by'] = current_user()->id;
@@ -32,7 +32,7 @@ class BuiltReport extends Eloquent implements PresentableInterface {
         return parent::create($attributes);
     }
 
-    public function update(array $attributes = array(), array $options = array())
+    public function update(array $attributes = [], array $options = [])
     {
         $attributes['modules'] = json_encode($attributes['modules']);
         $attributes['updated_by'] = current_user()->id;

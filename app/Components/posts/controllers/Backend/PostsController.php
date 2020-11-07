@@ -77,7 +77,7 @@ class PostsController extends BaseController {
             return Redirect::to("backend/{$input['type']}s");
         }
 
-        $categories = Input::get('categories', array());
+        $categories = Input::get('categories', []);
 
         try {
             $post = Post::create($input);
@@ -137,7 +137,7 @@ class PostsController extends BaseController {
             return Redirect::to("backend/{$input['type']}s");
         }
 
-        $categories = Input::get('categories', array());
+        $categories = Input::get('categories', []);
 
         try {
             $post = Post::findOrFail($id);
@@ -172,7 +172,7 @@ class PostsController extends BaseController {
             }
             $selected_ids = explode(' ', $selected_ids);
         } else {
-            $selected_ids = array($id);
+            $selected_ids = [$id];
         }
 
         foreach ($selected_ids as $id) {

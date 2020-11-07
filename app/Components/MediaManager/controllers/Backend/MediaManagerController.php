@@ -48,7 +48,7 @@ class MediaManagerController extends BaseController {
     {
         $directory = Input::get('dir', '');
 
-        $files = array();
+        $files = [];
 
         foreach (File::files(public_path($directory)) as $key => $file) {
             $pathinfo = pathinfo($file);
@@ -66,7 +66,7 @@ class MediaManagerController extends BaseController {
             }
         }
 
-        $dirs = array();
+        $dirs = [];
 
         foreach (File::directories(public_path($directory)) as $dir) {
             if (!str_contains($dir, 'thumbs')) {
@@ -75,10 +75,10 @@ class MediaManagerController extends BaseController {
             }
         }
 
-        $ret =  array(
+        $ret =  [
                 'files' => $files,
                 'dirs'  => $dirs
-            );
+            ];
         return Response::json($ret, 200);
     }
 
@@ -210,7 +210,7 @@ class MediaManagerController extends BaseController {
             }
             $selected_ids = explode(' ', $selected_ids);
         } else {
-            $selected_ids = array($id);
+            $selected_ids = [$id];
         }
 
         foreach ($selected_ids as $id) {

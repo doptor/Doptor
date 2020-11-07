@@ -9,7 +9,7 @@ Description     :   TranslationManager
 ===================================================
 */
 
-Route::group(array('prefix' => 'backend', 'middleware' => array('auth', 'auth.backend', 'auth.permissions', 'auth.pw_6_months')), function () {
+Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'auth.backend', 'auth.permissions', 'auth.pw_6_months']], function () {
 
     Route::get('modules/translation_manager/install',
                [

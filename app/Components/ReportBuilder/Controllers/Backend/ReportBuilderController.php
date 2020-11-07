@@ -82,8 +82,8 @@ class ReportBuilderController extends BaseController {
 
         $modules = Module::all();
 
-        $module_ids = array();
-        $required_fields = array();
+        $module_ids = [];
+        $required_fields = [];
         if ($report_builder->modules != 0) {
             foreach ($report_builder->modules as $selected_module) {
                 $module_ids[] = $selected_module['id'];
@@ -128,7 +128,7 @@ class ReportBuilderController extends BaseController {
             }
             $selected_ids = explode(' ', $selected_ids);
         } else {
-            $selected_ids = array($id);
+            $selected_ids = [$id];
         }
 
         foreach ($selected_ids as $id) {
@@ -161,18 +161,18 @@ class ReportBuilderController extends BaseController {
 
         $config = json_decode(file_get_contents($json_file), true);
 
-        $fieldAndNames = array();
+        $fieldAndNames = [];
         foreach ($config['forms'] as $form) {
             $fields = array_combine($form['fields'], $form['field_names']);
             $fields['created_at'] = 'Created At';
             $fields['updated_at'] = 'Updated At';
 
             if (array_key_exists('form_name', $form)) {
-                $form_info = array(
+                $form_info = [
                         'name'   => $form['form_name'],
                         'model'  => $form['model'],
                         'fields' => $fields
-                    );
+                    ];
 
                 $fieldAndNames[] = $form_info;
             }
@@ -189,7 +189,7 @@ class ReportBuilderController extends BaseController {
      */
     public function requiredFields($input, $i)
     {
-        $required_fields = array();
+        $required_fields = [];
         foreach ($input as $key => $value) {
             // Get only the input, that are fields in the module
             if (str_contains($key, 'fields-'.$i.'_')) {
@@ -203,7 +203,7 @@ class ReportBuilderController extends BaseController {
     public function formatInput($input)
     {
         $count = $input['count-value'];
-        $modules = array();
+        $modules = [];
 
         for ($i=1; $i<=$count; $i++) {
             if (!isset($input['module_id-'.$i])) {
@@ -218,25 +218,25 @@ class ReportBuilderController extends BaseController {
             if ($module && !empty($required_fields)) {
                 $model = 'Modules\\' . $module->vendor . '\\' . $module->alias . '\Models\\' . $model_name;
 
-                $modules[] = array(
+                $modules[] = [
                             'id'              => $module_id,
                             'name'            => $module->name,
                             'alias'           => $module->alias,
                             'form_name'       => $form_name,
                             'model'           => $model,
                             'required_fields' => $required_fields
-                        );
+                        ];
             }
         }
 
-        $output = array(
+        $output = [
                 'name'           => $input['name'],
                 'author'         => $input['author'],
                 'version'        => $input['version'],
                 'website'        => $input['website'],
                 'modules'        => $modules,
                 'show_calendars' => isset($input['show_calendars']) ? true : false
-            );
+            ];
 
         return $output;
     }

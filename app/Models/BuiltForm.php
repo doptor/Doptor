@@ -18,14 +18,14 @@ class BuiltForm extends Eloquent {
      */
     protected $table = 'built_forms';
 
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
-    public static $rules = array(
+    public static $rules = [
             'name'     => 'alpha_num_spaces|required',
             'hash'     => 'unique:built_forms,hash',
             'category' => 'required|not_in:0',
             'data'     => 'required'
-        );
+        ];
 
     /**
      * Relation with the form categories table
@@ -55,12 +55,12 @@ class BuiltForm extends Eloquent {
      */
     public static function all_forms()
     {
-        $forms = array(0=>'None');
-        $categories = BuiltForm::get(array('category'));
+        $forms = [0=>'None'];
+        $categories = BuiltForm::get(['category']);
 
         foreach ($categories as $category) {
-            $names = array();
-            foreach (BuiltForm::where('category', '=', $category->category)->get(array('id', 'name')) as $form) {
+            $names = [];
+            foreach (BuiltForm::where('category', '=', $category->category)->get(['id', 'name']) as $form) {
                 // Get only the form names
                 $names[$form->id] = $form->name;
             }
@@ -76,11 +76,11 @@ class BuiltForm extends Eloquent {
      */
     public static function redirect_to()
     {
-        $ret = array(
+        $ret = [
                 'list'   => 'List Records',
                 'add'    => 'Add Records',
                 // 'manual' => 'Enter link manually'
-            );
+            ];
         return $ret;
     }
 

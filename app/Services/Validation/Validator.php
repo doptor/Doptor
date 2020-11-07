@@ -22,7 +22,7 @@ abstract class Validator {
      * @return bool
      * @throws ValidationException
      */
-    public function validate($input, $rules, $message=array())
+    public function validate($input, $rules, $message=[])
     {
         $validation = V::make($input, $rules, $message);
 

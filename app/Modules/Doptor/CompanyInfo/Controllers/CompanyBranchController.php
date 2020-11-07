@@ -248,7 +248,7 @@ class CompanyBranchController extends CompanyBaseController {
             }
             $selected_ids = explode(' ', $selected_ids);
         } else {
-            $selected_ids = array($id);
+            $selected_ids = [$id];
         }
 
         $company_branch_model = $this->module_namespace . "Models\\CompanyBranch";
