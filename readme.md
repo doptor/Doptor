@@ -40,7 +40,7 @@ Doptor CMS is based on Laravel, which utilizes [Composer](http://getcomposer.org
 
 More about Doptor CMS
 --------------
-Visit www.doptor.com
+Visit https://doptor.org
 
 Contributing to Doptor CMS
 --------------
