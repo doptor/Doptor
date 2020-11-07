@@ -1,0 +1,10 @@
+/vendor
+/node_modules
+/.idea
+.env
+*.env
+.DS_Store
+Thumbs.db
+*.sublime-workspace
+*.sublime-project
+storage/
