@@ -150,10 +150,10 @@ return [
         /*
          * Application Service Providers...
          */
-        'App\Providers\AppServiceProvider',
-        'App\Providers\EventServiceProvider',
-        'App\Providers\RouteServiceProvider',
-        'App\Providers\ValidatorServiceProvider',
+        App\Providers\AppServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        App\Providers\ValidatorServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
 
@@ -225,7 +225,7 @@ return [
         'Captcha'   => 'Mews\Captcha\Facades\Captcha',
 
         // Custom Facades
-        'Schema'    => 'App\Facades\Schema',
+        'Schema'    => App\Facades\Schema::class,
 
     ],
 

@@ -15,7 +15,7 @@ class Kernel extends HttpKernel {
         'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
         'Illuminate\Session\Middleware\StartSession',
         'Illuminate\View\Middleware\ShareErrorsFromSession',
-        'App\Http\Middleware\VerifyCsrfToken',
+        \App\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -24,14 +24,14 @@ class Kernel extends HttpKernel {
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => 'App\Http\Middleware\Authenticate',
-        'auth.backend' => 'App\Http\Middleware\AuthenticateBackend',
-        'auth.permissions' => 'App\Http\Middleware\IsAuthorized',
-        'auth.pw_6_months' => 'App\Http\Middleware\IsStalePassword',
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth.backend' => \App\Http\Middleware\AuthenticateBackend::class,
+        'auth.permissions' => \App\Http\Middleware\IsAuthorized::class,
+        'auth.pw_6_months' => \App\Http\Middleware\IsStalePassword::class,
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
 
-        'isInstalled' => 'App\Http\Middleware\IsInstalled',
+        'isInstalled' => \App\Http\Middleware\IsInstalled::class,
     ];
 
 }
