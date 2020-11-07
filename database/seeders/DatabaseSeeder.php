@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Facades\DB;
 use Database\Seeders\CategoryPostTableSeeder;
 use Database\Seeders\BuiltModulesTableSeeder;
 use Database\Seeders\BuiltFormsTableSeeder;
