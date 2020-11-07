@@ -47,7 +47,7 @@ class UserGroupManager {
      */
     public function groupLists($value, $key = null)
     {
-        $groups = array();
+        $groups = [];
         foreach (Sentry::findAllGroups() as $group) {
             if ($key) {
                 $groups[$group->{$key}] = $group->{$value};
@@ -63,14 +63,14 @@ class UserGroupManager {
      * @param array $input
      * @return mixed
      */
-    public function createUserGroup($input = array())
+    public function createUserGroup($input = [])
     {
         $permissions = $this->setPermissions($input);
 
-        return Sentry::createGroup(array(
+        return Sentry::createGroup([
             'name'        => $input['name'],
             'permissions' => $permissions
-        ));
+        ]);
     }
 
     /**
@@ -79,7 +79,7 @@ class UserGroupManager {
      * @param array $input
      * @return mixed
      */
-    public function updateUserGroup($id, $input = array())
+    public function updateUserGroup($id, $input = [])
     {
         $group = Sentry::findGroupById($id);
 
@@ -130,9 +130,9 @@ class UserGroupManager {
     {
         if (isset($input['superuser'])) {
             // If superuser permissions, then no need to assign any other permissions
-            $permissions = array('superuser' => 1);
+            $permissions = ['superuser' => 1];
         } else {
-            $permissions = array('superuser' => 0);
+            $permissions = ['superuser' => 0];
             $permissions['backend'] = (isset($input['backend'])) ? 1 : 0;
             $access_areas = UserGroup::access_areas();
             foreach ($access_areas['resourceful'] as $abbr => $full) {

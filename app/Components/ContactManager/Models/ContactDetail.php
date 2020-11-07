@@ -19,8 +19,8 @@ class ContactDetail extends Eloquent implements PresentableInterface {
 
 	protected $table = 'contact_details';
 
-	protected $fillable = array('name', 'alias', 'image', 'email', 'address', 'city', 'state', 'zip_code', 'category_id', 'country', 'telephone', 'mobile', 'fax', 'website', 'display_options', 'location');
-	protected $guarded = array('id');
+	protected $fillable = ['name', 'alias', 'image', 'email', 'address', 'city', 'state', 'zip_code', 'category_id', 'country', 'telephone', 'mobile', 'fax', 'website', 'display_options', 'location'];
+	protected $guarded = ['id'];
 
     public function emails()
     {

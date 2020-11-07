@@ -35,7 +35,7 @@ class ContactPresenter extends Presenter
      */
     public function selected_categories($field='id')
     {
-        $ret = array();
+        $ret = [];
         foreach ($this->categories as $category) {
             $ret[] = $category->{$field};
         }

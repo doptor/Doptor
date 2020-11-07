@@ -14,8 +14,8 @@ use Robbo\Presenter\PresentableInterface;
 class Theme extends Eloquent implements PresentableInterface {
     protected $table = 'themes';
 
-    protected $guarded = array('id');
-    public static $rules = array();
+    protected $guarded = ['id'];
+    public static $rules = [];
 
     // Path in the public folder to upload image and its corresponding thumbnail
     protected $images_path = 'uploads/media/';
@@ -26,7 +26,7 @@ class Theme extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public static function create(array $attributes = array())
+    public static function create(array $attributes = [])
     {
         // App::make('Components\\ThemeManager\\Validation\\ThemeValidator')->validateForCreation($attributes);
 
@@ -40,7 +40,7 @@ class Theme extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public function update(array $attributes = array(), array $options = array())
+    public function update(array $attributes = [], array $options = [])
     {
         // App::make('Components\\ThemeManager\\Validation\\ThemeValidator')->validateForUpdate($attributes);
 
@@ -72,11 +72,11 @@ class Theme extends Eloquent implements PresentableInterface {
      */
     public static function all_targets()
     {
-        return array(
+        return [
                 'public'  => 'Public',
                 'admin'   => 'Admin',
                 'backend' => 'Backend'
-            );
+            ];
     }
 
     public static function themeLists($target=null)

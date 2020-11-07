@@ -17,11 +17,11 @@ class UserGroup extends Eloquent {
      */
     protected $table = 'user_groups';
 
-	protected $guarded = array();
+	protected $guarded = [];
 
     public static function all_groups()
     {
-        $groups = array();
+        $groups = [];
         foreach (Sentry::findAllGroups() as $group) {
             $groups[$group->id] = $group->name;
         }
@@ -30,8 +30,8 @@ class UserGroup extends Eloquent {
 
     public static function access_areas()
     {
-        return array(
-                'resourceful' => array (
+        return [
+                'resourceful' =>  [
                     'user-groups'       => 'User Groups',
                     'users'             => 'User Manager',
                     'menu-positions'    => 'Menu Positions',
@@ -49,29 +49,29 @@ class UserGroup extends Eloquent {
                     'module-builder'    => 'Module Builder',
                     'report-builder'    => 'Report Builder',
                     'report-generators' => 'Report Generators',
-                ),
-                'others' => array(
-                    'theme-manager'   => array(
+                ],
+                'others' => [
+                    'theme-manager'   => [
                             'apply'   => 'Apply Theme',
                             'index'   => 'List All Themes',
                             'create'  => 'Install Theme',
                             'destroy' => 'Delete Theme'
-                        ),
-                    'modules'   => array(
+                        ],
+                    'modules'   => [
                             'index'   => 'List All Modules',
                             'create'  => 'Install Module',
                             'destroy' => 'Delete Module'
-                        ),
-                    'synchronize'     => array(
+                        ],
+                    'synchronize'     => [
                             'index'        => 'Show Options',
                             'local-to-web' => 'Local To Web',
                             'web-to-local' => 'Web To Local'
-                        ),
-                    'config'          => array(
+                        ],
+                    'config'          => [
                             'edit' => 'Edit Configuration Settings'
-                        )
-                ),
+                        ]
+                ],
                 'modules' => Module::lists('name', 'alias')
-            );
+            ];
     }
 }

@@ -38,7 +38,7 @@ class MenuManager {
                             ->get();
 
             if ($menu_items->count() > 0) {
-                Menus::handler($menu_type, array('class' => $menu_class))->hydrate(function() use ($menu_items) {
+                Menus::handler($menu_type, ['class' => $menu_class])->hydrate(function() use ($menu_items) {
 
                     return $menu_items;
 
@@ -53,7 +53,7 @@ class MenuManager {
 
                         $menus = MenuManager::findChildren($item);
 
-                        $attributes = array();
+                        $attributes = [];
                         if ($menus) {
                             $attributes['class'] = $dropdown_toggle_class;
                         }
@@ -124,7 +124,7 @@ class MenuManager {
             foreach ($child_menus as $child) {
                 $inner_child = static::findChildren($child);
 
-                $menus->add($child->link(), $child->title, $inner_child, (!$child->same_window) ? array('target'=>'_blank') : array());
+                $menus->add($child->link(), $child->title, $inner_child, (!$child->same_window) ? ['target'=>'_blank'] : []);
             }
         } else {
             $menus = null;

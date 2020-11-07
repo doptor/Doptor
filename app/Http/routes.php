@@ -33,7 +33,7 @@ Route::get('/', function () {
 Route::get('home', 'HomeController@index');
 Route::get('wrapper/{id}', 'HomeController@wrapper');
 
-Route::group(array('prefix' => 'install', 'middleware' => 'isInstalled'), function () {
+Route::group(['prefix' => 'install', 'middleware' => 'isInstalled'], function () {
     Route::get('{step?}', 'InstallController@index');
     Route::post('configure/{step?}', 'InstallController@configure');
     Route::post('delete_files', 'InstallController@delete_files');
@@ -55,7 +55,7 @@ Route::get('contact/{category}', 'Components\ContactManager\Controllers\PublicCo
 Route::get('contact/{category}/{contact}', 'Components\ContactManager\Controllers\PublicController@showPublic');
 Route::post('contact/{contact}/send', 'Components\ContactManager\Controllers\PublicController@sendMessage');
 
-Route::resource('form', 'FormController', array('only' => array('store', 'show')));
+Route::resource('form', 'FormController', ['only' => ['store', 'show']]);
 
 Route::get('pages/category/{alias}', 'Components\Posts\Controllers\PostsController@category');
 Route::resource('pages', 'Components\Posts\Controllers\PostsController');
@@ -68,16 +68,16 @@ Route::resource('posts', 'Components\Posts\Controllers\PostsController');
   | Backend Routes
   |--------------------------------------------------------------------------
 */
-Route::group(array('prefix' => 'backend', 'middleware' => array('auth', 'auth.backend', 'auth.permissions', 'auth.pw_6_months')), function () {
+Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'auth.backend', 'auth.permissions', 'auth.pw_6_months']], function () {
 
     Route::any('/', 'Backend\HomeController@getIndex');
     Route::get('change_language/{lang}', 'Backend\HomeController@getChangeLang');
     Route::get('datatableLangfile', 'Backend\HomeController@getDatatableLangfile');
     Route::get('config', 'Backend\HomeController@getConfig');
-    Route::post('config', array('uses' => 'Backend\HomeController@postConfig', 'as' => 'config'));
+    Route::post('config', ['uses' => 'Backend\HomeController@postConfig', 'as' => 'config']);
 
     Route::get('theme_settings', 'Backend\HomeController@getThemeConfig');
-    Route::post('theme_settings', array('uses' => 'Backend\HomeController@postThemeConfig', 'as' => 'theme_settings'));
+    Route::post('theme_settings', ['uses' => 'Backend\HomeController@postThemeConfig', 'as' => 'theme_settings']);
 
     Route::get('menu-manager/set-default/{menu_id}', [
             'uses' => 'Backend\MenuManagerController@setDefault',
@@ -90,17 +90,17 @@ Route::group(array('prefix' => 'backend', 'middleware' => array('auth', 'auth.ba
     Route::resource('form-builder', 'Backend\FormBuilderController');
     Route::resource('form-categories', 'Backend\FormCategoriesController');
 
-    Route::resource('form', 'FormController', array('only' => array('index', 'store', 'show', 'destroy')));
+    Route::resource('form', 'FormController', ['only' => ['index', 'store', 'show', 'destroy']]);
     Route::get('form/{id}/list', 'FormController@index');
 
-    Route::post('users/{id}/activate', array('as' => 'backend.users.activate', 'uses' => 'Backend\UserController@activate'));
-    Route::post('users/{id}/deactivate', array('as' => 'backend.users.deactivate', 'uses' => 'Backend\UserController@deactivate'));
+    Route::post('users/{id}/activate', ['as' => 'backend.users.activate', 'uses' => 'Backend\UserController@activate']);
+    Route::post('users/{id}/deactivate', ['as' => 'backend.users.deactivate', 'uses' => 'Backend\UserController@deactivate']);
     Route::get('users/forgot_password', 'AuthController@postForgotPassword');
 
     // For changing the current user's password
     Route::get('users/change-password', 'Backend\UserController@getChangePassword');
-    Route::put('users/change-password', array('uses' => 'Backend\UserController@putChangePassword',
-    'as' => 'backend.users.change-password'));
+    Route::put('users/change-password', ['uses' => 'Backend\UserController@putChangePassword',
+    'as' => 'backend.users.change-password']);
 
     Route::get('synchronize', 'Backend\SynchronizeController@getIndex');
     Route::get('synchronize/localToWeb', 'Backend\SynchronizeController@getLocalToWeb');
@@ -117,10 +117,10 @@ Route::group(array('prefix' => 'backend', 'middleware' => array('auth', 'auth.ba
     Route::get('profile', 'Backend\ProfileController@showProfile');
     Route::get('profile/edit', 'Backend\ProfileController@editProfile');
 
-    Route::get('modules', array('as' => 'backend.modules.index', 'uses' => 'Backend\ModulesController@getIndex'));
-    Route::get('modules/install', array('as' => 'backend.modules.create', 'uses' => 'Backend\ModulesController@getInstall'));
-    Route::post('modules/install', array('as' => 'backend.modules.store', 'uses' => 'Backend\ModulesController@postInstall'));
-    Route::delete('modules/delete/{id}', array('uses' => 'Backend\ModulesController@getDelete', 'as' => 'backend.modules.destroy'));
+    Route::get('modules', ['as' => 'backend.modules.index', 'uses' => 'Backend\ModulesController@getIndex']);
+    Route::get('modules/install', ['as' => 'backend.modules.create', 'uses' => 'Backend\ModulesController@getInstall']);
+    Route::post('modules/install', ['as' => 'backend.modules.store', 'uses' => 'Backend\ModulesController@postInstall']);
+    Route::delete('modules/delete/{id}', ['uses' => 'Backend\ModulesController@getDelete', 'as' => 'backend.modules.destroy']);
 
     Route::get('module-builder/download/{id}', 'Backend\ModuleBuilderController@download');
     Route::get('module-builder/form-dropdowns/{id}', 'Backend\ModuleBuilderController@getFormDropdowns');
@@ -140,16 +140,16 @@ Route::group(array('prefix' => 'backend', 'middleware' => array('auth', 'auth.ba
 
     Route::get('backup', 'Backend\BackupRestoreController@getBackup');
     Route::post('backup', 'Backend\BackupRestoreController@postBackup');
-    Route::delete('backup/delete/{id}', array('uses' => 'Backend\BackupRestoreController@deleteBackup', 'as' => 'backups.destroy'));
+    Route::delete('backup/delete/{id}', ['uses' => 'Backend\BackupRestoreController@deleteBackup', 'as' => 'backups.destroy']);
 
     Route::get('restore', 'Backend\BackupRestoreController@getRestore');
     Route::get('restore/upload', 'Backend\BackupRestoreController@getRestoreFromFile');
-    Route::post('restore',  array('uses' => 'Backend\BackupRestoreController@postRestore', 'as' => 'backups.restore'));
+    Route::post('restore',  ['uses' => 'Backend\BackupRestoreController@postRestore', 'as' => 'backups.restore']);
 
-    Route::post('theme-manager/apply/{id}', array(
+    Route::post('theme-manager/apply/{id}', [
                                 'uses' => 'Components\ThemeManager\Controllers\Backend\ThemeManagerController@apply',
                                 'as' => 'backend.theme-manager.apply'
-                            ));
+                            ]);
     Route::resource('theme-manager', 'Components\ThemeManager\Controllers\Backend\ThemeManagerController');
 
     Route::get('report-builder/module-fields/{id}', 'Components\ReportBuilder\Controllers\Backend\ReportBuilderController@getModuleFields');
@@ -157,16 +157,16 @@ Route::group(array('prefix' => 'backend', 'middleware' => array('auth', 'auth.ba
     Route::resource('report-builder', 'Components\ReportBuilder\Controllers\Backend\ReportBuilderController');
 
     Route::get('report-generators/generate/{id}', 'Components\ReportGenerator\Controllers\Backend\ReportGeneratorController@getGenerate');
-    Route::post('report-generators/generate/{id}', array('uses' => 'Components\ReportGenerator\Controllers\Backend\ReportGeneratorController@postGenerate', 'as' => 'backend.report-generators.generate'));
+    Route::post('report-generators/generate/{id}', ['uses' => 'Components\ReportGenerator\Controllers\Backend\ReportGeneratorController@postGenerate', 'as' => 'backend.report-generators.generate']);
     Route::get('report-generators/install', 'Components\ReportGenerator\Controllers\Backend\ReportGeneratorController@create');
     Route::resource('report-generators', 'Components\ReportGenerator\Controllers\Backend\ReportGeneratorController');
 
     Route::resource('contact-categories', 'Components\ContactManager\Controllers\Backend\ContactCategoriesController');
 
     Route::resource('contact-manager', 'Components\ContactManager\Controllers\Backend\ContactController');
-    Route::get('contact-manager/create/{form_id}', array('uses' => 'Components\ContactManager\Controllers\Backend\ContactController@create', 'as' => 'backend.contact-manager.create'));
-    Route::get('contact-manager/{id}/{form_id}', array('uses' => 'Components\ContactManager\Controllers\Backend\ContactController@show', 'as' => 'backend.contact-manager.show'));
-    Route::get('contact-manager/{id}/edit/{form_id}', array('uses' => 'Components\ContactManager\Controllers\Backend\ContactController@edit', 'as' => 'backend.contact-manager.edit'));
+    Route::get('contact-manager/create/{form_id}', ['uses' => 'Components\ContactManager\Controllers\Backend\ContactController@create', 'as' => 'backend.contact-manager.create']);
+    Route::get('contact-manager/{id}/{form_id}', ['uses' => 'Components\ContactManager\Controllers\Backend\ContactController@show', 'as' => 'backend.contact-manager.show']);
+    Route::get('contact-manager/{id}/edit/{form_id}', ['uses' => 'Components\ContactManager\Controllers\Backend\ContactController@edit', 'as' => 'backend.contact-manager.edit']);
 });
 
 /*
@@ -174,7 +174,7 @@ Route::group(array('prefix' => 'backend', 'middleware' => array('auth', 'auth.ba
   | Admin Routes
   |--------------------------------------------------------------------------
 */
-Route::group(array('prefix' => 'admin'), function () {
+Route::group(['prefix' => 'admin'], function () {
 
     if (Schema::hasTable('menus')) {
         $default_menu = Menu::published()->default('admin')->first();
@@ -193,24 +193,24 @@ Route::group(array('prefix' => 'admin'), function () {
 
     Route::get('datatableLangfile', 'Backend\HomeController@getDatatableLangfile');
     Route::get('config', 'Backend\HomeController@getConfig');
-    Route::post('config', array('uses' => 'Backend\HomeController@postConfig', 'as' => 'config'));
+    Route::post('config', ['uses' => 'Backend\HomeController@postConfig', 'as' => 'config']);
 
     Route::resource('menu-manager', 'Backend\MenuManagerController');
     Route::resource('menu-categories', 'Backend\MenuCategoriesController');
     Route::resource('menu-positions', 'Backend\MenuPositionsController');
 
-    Route::resource('form', 'FormController', array('only' => array('index', 'store', 'show', 'destroy')));
+    Route::resource('form', 'FormController', ['only' => ['index', 'store', 'show', 'destroy']]);
     Route::get('form/{id}/list', 'FormController@index');
 
     Route::resource('form-builder', 'Backend\FormBuilderController');
     Route::resource('form-categories', 'Backend\FormCategoriesController');
 
-    Route::post('users/{id}/activate', array('as' => 'admin.users.activate', 'uses' => 'Backend\UserController@activate'));
-    Route::post('users/{id}/deactivate', array('as' => 'admin.users.deactivate', 'uses' => 'Backend\UserController@deactivate'));
+    Route::post('users/{id}/activate', ['as' => 'admin.users.activate', 'uses' => 'Backend\UserController@activate']);
+    Route::post('users/{id}/deactivate', ['as' => 'admin.users.deactivate', 'uses' => 'Backend\UserController@deactivate']);
 
     // For changing the current user's password
     Route::get('users/change-password', 'Backend\UserController@getChangePassword');
-    Route::put('users/change-password', array('uses' => 'Backend\UserController@putChangePassword', 'as' => 'admin.users.change-password'));
+    Route::put('users/change-password', ['uses' => 'Backend\UserController@putChangePassword', 'as' => 'admin.users.change-password']);
 
     Route::get('synchronize', 'Backend\SynchronizeController@getIndex');
     Route::get('synchronize/localToWeb', 'Backend\SynchronizeController@getLocalToWeb');
@@ -227,10 +227,10 @@ Route::group(array('prefix' => 'admin'), function () {
     Route::get('profile', 'Backend\ProfileController@showProfile');
     Route::get('profile/edit', 'Backend\ProfileController@editProfile');
 
-    Route::get('modules', array('as' => 'admin.modules.index', 'uses' => 'Backend\ModulesController@getIndex'));
-    Route::get('modules/install', array('as' => 'admin.modules.create', 'uses' => 'Backend\ModulesController@getInstall'));
-    Route::post('modules/install', array('as' => 'admin.modules.store', 'uses' => 'Backend\ModulesController@postInstall'));
-    Route::delete('modules/delete/{id}', array('uses' => 'Backend\ModulesController@getDelete', 'as' => 'admin.modules.destroy'));
+    Route::get('modules', ['as' => 'admin.modules.index', 'uses' => 'Backend\ModulesController@getIndex']);
+    Route::get('modules/install', ['as' => 'admin.modules.create', 'uses' => 'Backend\ModulesController@getInstall']);
+    Route::post('modules/install', ['as' => 'admin.modules.store', 'uses' => 'Backend\ModulesController@postInstall']);
+    Route::delete('modules/delete/{id}', ['uses' => 'Backend\ModulesController@getDelete', 'as' => 'admin.modules.destroy']);
 
     Route::get('module-builder/download/{id}', 'Backend\ModuleBuilderController@download');
     Route::get('module-builder/form-dropdowns/{id}', 'Backend\ModuleBuilderController@getFormDropdowns');
@@ -247,32 +247,32 @@ Route::group(array('prefix' => 'admin'), function () {
     Route::any('media-manager/folder_contents', 'Components\MediaManager\Controllers\Backend\MediaManagerController@folder_contents');
     Route::resource('media-manager', 'Components\MediaManager\Controllers\Backend\MediaManagerController');
 
-    Route::post('theme-manager/apply/{id}', array('uses' => 'Components\ThemeManager\Controllers\Backend\ThemeManagerController@apply', 'as' => 'admin.theme-manager.apply'));
+    Route::post('theme-manager/apply/{id}', ['uses' => 'Components\ThemeManager\Controllers\Backend\ThemeManagerController@apply', 'as' => 'admin.theme-manager.apply']);
     Route::resource('theme-manager', 'Components\ThemeManager\Controllers\Backend\ThemeManagerController');
 
     Route::get('report-builder/module-fields/{id}', 'Components\ReportBuilder\Controllers\Backend\ReportBuilderController@getModuleFields');
     Route::resource('report-builder', 'Components\ReportBuilder\Controllers\Backend\ReportBuilderController');
     Route::get('report-generators/generate/{id}', 'Components\ReportGenerator\Controllers\Backend\ReportGeneratorController@getGenerate');
-    Route::post('report-generators/generate/{id}', array(
+    Route::post('report-generators/generate/{id}', [
                             'uses' => 'Components\ReportGenerator\Controllers\Backend\ReportGeneratorController@postGenerate',
-                        'as' => 'admin.report-generators.generate'));
+                        'as' => 'admin.report-generators.generate']);
     Route::resource('report-generators', 'Components\ReportGenerator\Controllers\Backend\ReportGeneratorController');
 
     Route::resource('contact-categories', 'Components\ContactManager\Controllers\Backend\ContactCategoriesController');
 
     Route::resource('contact-manager', 'Components\ContactManager\Controllers\Backend\ContactController');
-    Route::get('contact-manager/create/{form_id}', array(
+    Route::get('contact-manager/create/{form_id}', [
                         'uses' => 'Components\ContactManager\Controllers\Backend\ContactController@create',
                         'as' => 'backend.contact-manager.create'
-                    ));
-    Route::get('contact-manager/{id}/{form_id}', array(
+                    ]);
+    Route::get('contact-manager/{id}/{form_id}', [
                         'uses' => 'Components\ContactManager\Controllers\Backend\ContactController@show',
                         'as' => 'backend.contact-manager.show'
-                    ));
-    Route::get('contact-manager/{id}/edit/{form_id}', array(
+                    ]);
+    Route::get('contact-manager/{id}/edit/{form_id}', [
                         'uses' => 'Components\ContactManager\Controllers\Backend\ContactController@edit',
                         'as' => 'backend.contact-manager.edit'
-                    ));
+                    ]);
 });
 
 // Add the routes of installed modules

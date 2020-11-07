@@ -27,7 +27,7 @@ class ThemeSetting extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public static function create(array $attributes = array())
+    public static function create(array $attributes = [])
     {
         $attributes['created_by'] = current_user()->id;
 
@@ -39,7 +39,7 @@ class ThemeSetting extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public function update(array $attributes = array(), array $options = array())
+    public function update(array $attributes = [], array $options = [])
     {
         $attributes['updated_by'] = current_user()->id;
 

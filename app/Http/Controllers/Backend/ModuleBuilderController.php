@@ -284,16 +284,16 @@ class ModuleBuilderController extends AdminController {
      */
     private function formDropdownSources($module_id=null)
     {
-        $select = array('Same as in form');
+        $select = ['Same as in form'];
 
         if ($module_id) {
             // Exclude the currently being edited module
-            $all_modules = BuiltModule::whereNotIn('id', array($module_id))->latest();
+            $all_modules = BuiltModule::whereNotIn('id', [$module_id])->latest();
         } else {
             $all_modules = BuiltModule::latest();
         }
 
-        $all_modules = $all_modules->get(array('id', 'name', 'form_id', 'models'));
+        $all_modules = $all_modules->get(['id', 'name', 'form_id', 'models']);
         foreach ($all_modules as $this_module) {
             if ($this_module->models) {
                 $models = json_decode($this_module->models);

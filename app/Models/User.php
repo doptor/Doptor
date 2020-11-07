@@ -21,7 +21,7 @@ class User extends Eloquent {
      * The attributes excluded from the model's JSON form.
      * @var array
      */
-    protected $hidden = array('password');
+    protected $hidden = ['password'];
 
     // Path in the public folder to upload image and its corresponding thumbnail
     public static $images_path = 'uploads/users/';
@@ -36,7 +36,7 @@ class User extends Eloquent {
 
     public static function validate_registration($input)
     {
-        $rules = array(
+        $rules = [
             'username'              => 'alpha_dash|required|min:4|unique:users,username',
             'email'                 => 'required|min:4|email|unique:users,email',
             'password'              => 'required|min:8|confirmed',
@@ -44,7 +44,7 @@ class User extends Eloquent {
             'first_name'            => 'required|min:3',
             'last_name'             => 'required|min:3',
             'auto_logout_time'      => 'integer'
-        );
+        ];
 
         if (!isset($input['security_question']) && !isset($input['security_answer'])) {
             unset($rules['security_question']);
@@ -56,7 +56,7 @@ class User extends Eloquent {
 
     public static function validate_change($input, $id)
     {
-        $rules = array(
+        $rules = [
             'username'              => 'alpha_dash|required|min:4|unique:users,username,'.$id,
             'email'                 => 'required|min:4|email|unique:users,email,'.$id,
             'password'              => 'min:8|confirmed|confirmed',
@@ -66,7 +66,7 @@ class User extends Eloquent {
             'auto_logout_time'      => 'integer',
             'security_question'     => 'required',
             'security_answer'       => 'required'
-        );
+        ];
 
         if (!isset($input['security_question']) && !isset($input['security_answer'])) {
             unset($rules['security_question']);
@@ -77,19 +77,19 @@ class User extends Eloquent {
 
     public static function validate_pw_change($input)
     {
-        $rules = array(
+        $rules = [
             'password'              => 'min:6|confirmed|confirmed',
             'password_confirmation' => 'min:6'
-        );
+        ];
 
         return User::validator($input, $rules);
     }
 
     public static function validate_reset($input)
     {
-        $rules = array(
+        $rules = [
                     'email' => 'required|email|min:4'
-            );
+            ];
 
         return User::validator($input, $rules);
     }
@@ -107,10 +107,10 @@ class User extends Eloquent {
 
     public static function status()
     {
-        return array(
+        return [
                 1 => 'Active',
                 0 => 'Inactive'
-            );
+            ];
     }
 
     public static function isBanned($id)

@@ -59,7 +59,7 @@ class HomeController extends AdminController {
     {
         $languages = TranslationLanguage::lists('name', 'code');
 
-        if (!$this->user->hasAnyAccess(array('config.create', 'config.update'))) App::abort('401');
+        if (!$this->user->hasAnyAccess(['config.create', 'config.update'])) App::abort('401');
 
         $this->layout->title = 'Website Configuration';
         $this->layout->content = View::make($this->link_type.'.'.$this->current_theme.'.config')
@@ -68,7 +68,7 @@ class HomeController extends AdminController {
 
     public function postConfig()
     {
-        if (!$this->user->hasAnyAccess(array('config.create', 'config.update'))) App::abort('401');
+        if (!$this->user->hasAnyAccess(['config.create', 'config.update'])) App::abort('401');
         $input = Input::all();
 
         unset($input['_token']);
@@ -114,7 +114,7 @@ class HomeController extends AdminController {
      */
     public function postThemeConfig()
     {
-        if (!$this->user->hasAnyAccess(array('config.create', 'config.update'))) App::abort('401');
+        if (!$this->user->hasAnyAccess(['config.create', 'config.update'])) App::abort('401');
         $input = Input::all();
 
         unset($input['_token']);

@@ -36,7 +36,7 @@ class ModuleBuilder {
     function __construct()
     {
         $this->templatePath = app_path() . '/Services/module_template/';
-        $this->selected_forms = array();
+        $this->selected_forms = [];
         $this->form_rendered = '';
         $this->nav_tabs = '';
     }
@@ -147,9 +147,9 @@ class ModuleBuilder {
      */
     private function saveModuleConfig($input, $module_alias, $requires)
     {
-        $module_config = array(
+        $module_config = [
             'enabled' => true,
-            'info'    => array(
+            'info'    => [
                 'name'        => $this->module_name,
                 'hash'        => $input['hash'],
                 'alias'       => $module_alias,
@@ -158,11 +158,11 @@ class ModuleBuilder {
                 'vendor'      => $input['vendor'],
                 'website'     => $input['website'],
                 'description' => $input['description'],
-            ),
+            ],
             'target'  => implode('|', $input['target']),
             'requires'=> $requires,
             'forms'   => $this->selected_forms
-        );
+        ];
 
         // Create the config file for module
         file_put_contents(temp_path() . "/{$module_alias}/module.json", json_encode($module_config));
@@ -207,7 +207,7 @@ class ModuleBuilder {
     public function getFormFields($form_data)
     {
         $form_json = json_decode(str_replace('\\', '', $form_data), true);
-        $form_fields = array();
+        $form_fields = [];
 
         for ($i = 1; $i < sizeof($form_json); $i++) {
             $this_form = $form_json[$i];
@@ -227,7 +227,7 @@ class ModuleBuilder {
                 $field_name = $this_form['fields']['label']['value'];
             }
 
-            if (in_array($type, array('text', 'input', 'textarea', 'radio', 'select')) &&
+            if (in_array($type, ['text', 'input', 'textarea', 'radio', 'select']) &&
                 !isset($this_form['fields']['buttontype'])
             ) {
                 $form_fields['fields'][] = $value;
@@ -435,11 +435,11 @@ class ModuleBuilder {
 
             File::copy($model_template, $new_model);
 
-            $replace = array(
+            $replace = [
                 'ModuleModel'  => $model_name,
                 'table_name'   => 'mdl_' . Str::lower($this->module_vendor) . '_' . $selected_form['table'],
                 'table_fields' => "'" . implode("', '", $selected_form['fields']) . "'"
-            );
+            ];
 
             // Replace the template contents with actual data
             $model_contents = file_get_contents($new_model);
@@ -518,7 +518,7 @@ class ModuleBuilder {
 
             foreach ($files as $file) {
                 // Ignore "." and ".." folders
-                if (in_array(substr($file, strrpos($file, DIRECTORY_SEPARATOR) + 1), array('.', '..', ':')))
+                if (in_array(substr($file, strrpos($file, DIRECTORY_SEPARATOR) + 1), ['.', '..', ':']))
                     continue;
 
                 $file = realpath($file);
@@ -549,7 +549,7 @@ class ModuleBuilder {
      */
     public function SearchandReplace($dir, $stringsearch, $stringreplace)
     {
-        $listDir = array();
+        $listDir = [];
         if ($handler = opendir($dir)) {
             while (($sub = readdir($handler)) !== false) {
                 if ($sub != "." && $sub != ".." && $sub != "Thumb.db") {
@@ -595,7 +595,7 @@ class ModuleBuilder {
      */
     public function getFormSelects($form_id)
     {
-        $form_selects = array();
+        $form_selects = [];
 
         if ($form_id == 0) {
             return $form_selects;
@@ -632,7 +632,7 @@ class ModuleBuilder {
      */
     public function setFormDropdownSources($input)
     {
-        $sources = array();
+        $sources = [];
         $source_modules = array_filter(array_keys($input), function ($key) {
             if (str_contains($key, 'moduleform')) {
                 return true;
@@ -671,12 +671,12 @@ class ModuleBuilder {
         $source_array = var_export($sources, true);
 
         // Replace the sources to not be strings
-        $source_array = strtr($source_array, array(
+        $source_array = strtr($source_array, [
                             "=> '"   => "=> ",
                             "\\'"    => "'",
                             ")'"     => ")",
                             "\\\\"   => "\\"
-                        ));
+                        ]);
 
         return $source_array;
     }

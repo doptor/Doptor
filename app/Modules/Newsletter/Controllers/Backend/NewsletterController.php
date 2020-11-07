@@ -101,7 +101,7 @@ class NewsletterController extends BaseController
             }
             $selected_ids = explode(' ', $selected_ids);
         } else {
-            $selected_ids = array($id);
+            $selected_ids = [$id];
         }
 
         foreach ($selected_ids as $id) {

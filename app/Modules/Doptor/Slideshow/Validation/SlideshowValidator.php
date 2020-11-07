@@ -17,24 +17,24 @@ class SlideshowValidator extends Validator {
      * Default rules
      * @var array
      */
-    protected $rules = array(
+    protected $rules = [
         'image'     => 'alpha_spaces|required'
-    );
+    ];
 
     /**
      * Default rules for update
      * @var array
      */
-    protected $updateRules = array(
+    protected $updateRules = [
         // 'image'     => 'required'
-    );
+    ];
 
     /**
      * Messages for validation
      * @var array
      */
-    protected $message = array(
-    );
+    protected $message = [
+    ];
 
     public function validateForCreation($input)
     {

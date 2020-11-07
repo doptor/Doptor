@@ -8,8 +8,8 @@ class ThemesTableSeeder extends Seeder {
     {
         Eloquent::unguard();
 
-        $themes = array(
-                array(
+        $themes = [
+                [
                     'name'        => 'Default Public Theme',
                     'version'     => '1.0',
                     'author'      => '',
@@ -18,8 +18,8 @@ class ThemesTableSeeder extends Seeder {
                     'directory'   => 'default',
                     'target'      => 'public',
                     'created_by'  => 1
-                ),
-                array(
+                ],
+                [
                     'name'        => 'Default Admin Theme',
                     'version'     => '1.0',
                     'author'      => '',
@@ -28,8 +28,8 @@ class ThemesTableSeeder extends Seeder {
                     'directory'   => 'default',
                     'target'      => 'admin',
                     'created_by'  => 1
-                ),
-                array(
+                ],
+                [
                     'name'        => 'Default Backend Theme',
                     'version'     => '1.0',
                     'author'      => '',
@@ -38,8 +38,8 @@ class ThemesTableSeeder extends Seeder {
                     'directory'   => 'default',
                     'target'      => 'backend',
                     'created_by'  => 1
-                ),
-                array(
+                ],
+                [
                     'name'        => 'Default Public Theme 2',
                     'version'     => '1.0',
                     'author'      => '',
@@ -48,8 +48,8 @@ class ThemesTableSeeder extends Seeder {
                     'directory'   => 'default2',
                     'target'      => 'public',
                     'created_by'  => 1
-                ),
-                array(
+                ],
+                [
                     'name'        => 'Zeltrax Theme',
                     'version'     => '1.0',
                     'author'      => '',
@@ -58,8 +58,8 @@ class ThemesTableSeeder extends Seeder {
                     'directory'   => 'zeltrax',
                     'target'      => 'public',
                     'created_by'  => 1
-                ),
-            );
+                ],
+            ];
 
         DB::table('themes')->insert($themes);
 

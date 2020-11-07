@@ -20,14 +20,14 @@ class Menu extends Eloquent implements PresentableInterface {
      */
     protected $table = 'menus';
 
-    public static $accessible = array('order', 'title', 'link', 'parent', 'category', 'position');
+    public static $accessible = ['order', 'title', 'link', 'parent', 'category', 'position'];
 
     // Path in the public folder to upload menu icon
     protected $images_path = 'uploads/menus/';
 
-	protected $guarded = array('access_groups');
+	protected $guarded = ['access_groups'];
 
-	public static $rules = array(
+	public static $rules = [
             'title'          => 'alpha_spaces|required',
             'alias'          => 'required|alpha_dash|unique:menus,alias',
             'parent'         => 'required|integer',
@@ -36,7 +36,7 @@ class Menu extends Eloquent implements PresentableInterface {
             'position'       => 'required|not_in:0',
             'wrapper_width'  => 'integer',
             'wrapper_height' => 'integer'
-        );
+        ];
 
     /**
      * Relation with the menu categories table
@@ -79,11 +79,11 @@ class Menu extends Eloquent implements PresentableInterface {
      */
     public static function all_targets()
     {
-        return array(
+        return [
                 'public'  => 'Public',
                 'admin'   => 'Admin',
                 'backend' => 'Backend'
-            );
+            ];
     }
 
     /**
@@ -249,11 +249,11 @@ class Menu extends Eloquent implements PresentableInterface {
      */
     public static function all_status()
     {
-        return array(
+        return [
                 'published'   => 'Publish',
                 'unpublished' => 'Unpublish',
                 'draft'       => 'Draft'
-            );
+            ];
     }
 
     public static function menu_name($id)
@@ -277,9 +277,9 @@ class Menu extends Eloquent implements PresentableInterface {
      */
     public static function menu_lists($allow_none=false)
     {
-        $modules = array();
+        $modules = [];
 
-        foreach (Module::all(array('name', 'links')) as $module) {
+        foreach (Module::all(['name', 'links']) as $module) {
             if ($module->links != '') {
                 $links = json_decode($module->links);
                 foreach ($links as $link) {
@@ -290,33 +290,33 @@ class Menu extends Eloquent implements PresentableInterface {
             }
         }
 
-        $pages = array();
-        foreach (Post::type('page')->get(array('title', 'permalink')) as $page) {
+        $pages = [];
+        foreach (Post::type('page')->get(['title', 'permalink']) as $page) {
             $pages['pages/' . $page->permalink] = $page->title;
         }
 
-        $post_categories = array();
-        foreach (Category::type('post')->get(array('name', 'alias')) as $page_category) {
+        $post_categories = [];
+        foreach (Category::type('post')->get(['name', 'alias']) as $page_category) {
             $post_categories['posts/category/' . $page_category->alias] = $page_category->name;
         }
 
-        $contacts = array();
-        foreach (Components\ContactManager\Models\ContactDetail::get(array('name', 'alias')) as $contact) {
+        $contacts = [];
+        foreach (Components\ContactManager\Models\ContactDetail::get(['name', 'alias']) as $contact) {
             $contacts['contact/show/' . $contact->alias] = $contact->name;
         }
 
-        $contact_categories = array();
-        foreach (Components\ContactManager\Models\ContactCategory::get(array('name', 'alias')) as $contact_cat) {
+        $contact_categories = [];
+        foreach (Components\ContactManager\Models\ContactCategory::get(['name', 'alias']) as $contact_cat) {
             $contact_categories['contact/' . $contact_cat->alias] = $contact_cat->name;
         }
 
-        $forms = array();
-        foreach (BuiltForm::get(array('name', 'id')) as $contact_cat) {
+        $forms = [];
+        foreach (BuiltForm::get(['name', 'id']) as $contact_cat) {
             $forms['link_type/form/' . $contact_cat->id] = $contact_cat->name;
         }
 
-        $report_generators = array();
-        foreach (Components\ReportGenerator\Models\ReportGenerator::get(array('name', 'id')) as $report_generator) {
+        $report_generators = [];
+        foreach (Components\ReportGenerator\Models\ReportGenerator::get(['name', 'id']) as $report_generator) {
             $report_generators['admin/report-generators/generate/' . $report_generator->id] = $report_generator->name;
         }
 
@@ -343,14 +343,14 @@ class Menu extends Eloquent implements PresentableInterface {
 
     public static function menu_entries($id=0)
     {
-        $all_menus = array(0=>'None');
+        $all_menus = [0=>'None'];
         $menu_entries = Menu::with('cat')->get();
 
         foreach ($menu_entries as $menu_entry) {
             if ($menu_entry->id == $id) continue;
-            $menu = array(
+            $menu = [
                     $menu_entry->id => $menu_entry->title
-                );
+                ];
 
             if ($menu_entry->cat) {
                 $cat_name = $menu_entry->cat->name;
@@ -369,7 +369,7 @@ class Menu extends Eloquent implements PresentableInterface {
      */
     public function selected_groups($field='id')
     {
-        $ret = array();
+        $ret = [];
         foreach ($this->groups as $group) {
             $ret[] = $group->{$field};
         }

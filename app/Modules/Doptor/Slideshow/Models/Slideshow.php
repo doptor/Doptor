@@ -25,15 +25,15 @@ class Slideshow extends Eloquent implements PresentableInterface {
     // Path in the public folder to upload slides
     protected $images_path = 'uploads/slideshow/';
 
-    protected $fillable = array();
-    protected $guarded = array('id');
+    protected $fillable = [];
+    protected $guarded = ['id'];
 
     /**
      * Create a new slide
      * @param array $attributes
      * @return void
      */
-    public static function create(array $attributes = array())
+    public static function create(array $attributes = [])
     {
         App::make('Modules\\Doptor\\Slideshow\\Validation\\SlideshowValidator')->validateForCreation($attributes);
 
@@ -45,7 +45,7 @@ class Slideshow extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public function update(array $attributes = array(), array $options = array())
+    public function update(array $attributes = [], array $options = [])
     {
         App::make('Modules\\Doptor\\Slideshow\\Validation\\SlideshowValidator')->validateForUpdate($attributes);
 
@@ -126,12 +126,12 @@ class Slideshow extends Eloquent implements PresentableInterface {
      */
     public static function all_status()
     {
-        return array(
+        return [
                 'published'   => 'Publish',
                 'unpublished' => 'Unpublish',
                 'drafted'     => 'Draft',
                 'archived'    => 'Archive'
-            );
+            ];
     }
 
     /**

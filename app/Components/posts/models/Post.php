@@ -15,8 +15,8 @@ use Carbon\Carbon;
 class Post extends Eloquent implements PresentableInterface {
     protected $table = 'posts';
 
-    protected $fillable = array('title', 'permalink', 'image', 'content', 'status', 'target', 'featured', 'publish_start', 'publish_end', 'meta_title', 'meta_description', 'meta_keywords', 'type', 'hits', 'extras', 'created_by', 'updated_by');
-    protected $guarded = array('id', 'categories');
+    protected $fillable = ['title', 'permalink', 'image', 'content', 'status', 'target', 'featured', 'publish_start', 'publish_end', 'meta_title', 'meta_description', 'meta_keywords', 'type', 'hits', 'extras', 'created_by', 'updated_by'];
+    protected $guarded = ['id', 'categories'];
 
     // Path in the public folder to upload image and its corresponding thumbnail
     protected $images_path = 'uploads/posts/';
@@ -36,11 +36,11 @@ class Post extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public static function create(array $attributes = array())
+    public static function create(array $attributes = [])
     {
         App::make('Components\\Posts\\Validation\\PostValidator')->validateForCreation($attributes);
 
-        $extras = array();
+        $extras = [];
         $extras['contact_page'] = isset($attributes['contact']);
         $extras['contact_coords'] = isset($attributes['contact_coords']) ?
             $attributes['contact_coords'] : '';
@@ -58,11 +58,11 @@ class Post extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public function update(array $attributes = array(), array $options = array())
+    public function update(array $attributes = [], array $options = [])
     {
         App::make('Components\\Posts\\Validation\\PostValidator')->validateForUpdate($attributes);
 
-        $extras = array();
+        $extras = [];
         $extras['contact_page'] = isset($attributes['contact']);
         $extras['contact_coords'] = isset($attributes['contact_coords']) ?
             $attributes['contact_coords'] : '';
@@ -269,11 +269,11 @@ class Post extends Eloquent implements PresentableInterface {
      */
     public static function all_targets()
     {
-        return array(
+        return [
             'public'  => 'Public',
             'admin'   => 'Admin',
             'backend' => 'Backend'
-        );
+        ];
     }
 
     /**
@@ -282,12 +282,12 @@ class Post extends Eloquent implements PresentableInterface {
      */
     public static function all_status()
     {
-        return array(
+        return [
             'published'   => 'Publish',
             'unpublished' => 'Unpublish',
             'drafted'     => 'Draft',
             'archived'    => 'Archive'
-        );
+        ];
     }
 
     /**

@@ -14,11 +14,11 @@ class Setting extends Eloquent {
 
     protected $table = 'settings';
 
-	protected $guarded = array();
+	protected $guarded = [];
 
-	public static $protected_settings = array('email_host', 'email_port', 'email_encryption', 'email_username', 'email_password');
+	public static $protected_settings = ['email_host', 'email_port', 'email_encryption', 'email_username', 'email_password'];
 
-	public static $rules = array();
+	public static $rules = [];
 
 	/**
 	 * Finds the entry with the specified name.

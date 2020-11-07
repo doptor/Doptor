@@ -17,8 +17,8 @@ class Company extends Eloquent {
 
 	protected $table = 'mdl_doptor_companies';
 
-	protected $fillable = array('name', 'reg_no', 'logo', 'address', 'country_id', 'website', 'phone', 'email', 'address', 'captcha');
-	protected $guarded = array('id');
+	protected $fillable = ['name', 'reg_no', 'logo', 'address', 'country_id', 'website', 'phone', 'email', 'address', 'captcha'];
+	protected $guarded = ['id'];
 
     /**
      * A company can belong to one country

@@ -46,7 +46,7 @@ class FormBuilderController extends AdminController {
             $validator = \BuiltForm::validate($input);
 
             if ($validator->passes()) {
-                $form = \BuiltForm::create (array(
+                $form = \BuiltForm::create ([
                     'name'         => $input['name'],
                     'hash'         => uniqid('form_'),
                     'category'     => $input['category'],
@@ -57,7 +57,7 @@ class FormBuilderController extends AdminController {
                     'extra_code'   => base64_decode($input['extra_code']),
                     'email'        => $input['email'],
                     'rendered'     => base64_decode($input['rendered'])
-                ));
+                ]);
 
                 if ($form) {
                     return \Redirect::to('backend/form-builder')

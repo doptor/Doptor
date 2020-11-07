@@ -108,7 +108,7 @@ class BaseController extends Controller {
     {
         $this->setupLayout();
 
-        $response = call_user_func_array(array($this, $method), $parameters);
+        $response = call_user_func_array([$this, $method], $parameters);
 
         if (is_null($response) && ! is_null($this->layout))
         {

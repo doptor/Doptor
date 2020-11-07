@@ -60,11 +60,11 @@ class UserManager {
      * @return $user
      * @throws Exception
      */
-    public function createUser($input = array())
+    public function createUser($input = [])
     {
         $photo = (isset($input['photo']) && $input['photo']) ? $this->uploadImage($input['photo']) : '';
 
-        $user = Sentry::createUser(array(
+        $user = Sentry::createUser([
             'username'          => $input['username'],
             'email'             => $input['email'],
             'password'          => $input['password'],
@@ -77,7 +77,7 @@ class UserManager {
             'auto_logout_time'  => $input['auto_logout_time'],
             'last_pw_changed'   => date('Y-m-d h:i:s'),
             'activated'         => 1,
-        ));
+        ]);
 
         // Assign user groups
         $this->addUserToGroup($input['user-group'], $user);
@@ -92,7 +92,7 @@ class UserManager {
      * @return mixed|void
      * @throws Exception
      */
-    public function updateUser($id, $input = array())
+    public function updateUser($id, $input = [])
     {
         $input['id'] = $id;
 
@@ -146,7 +146,7 @@ class UserManager {
                 }
                 $selected_ids = explode(' ', $selected_ids);
             } else {
-                $selected_ids = array($id);
+                $selected_ids = [$id];
             }
 
             if (in_array(current_user()->id, $selected_ids)) {
@@ -219,7 +219,7 @@ class UserManager {
             // If no value is passed return Sentry Object
             return $user->getGroups();
         }
-        $groups = array();
+        $groups = [];
         foreach ($user->getGroups() as $group) {
             if ($key) {
                 $groups[$group->{$key}] = $group->{$value};

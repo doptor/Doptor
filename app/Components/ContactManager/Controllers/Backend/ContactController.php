@@ -68,8 +68,8 @@ class ContactController extends BaseController {
                 $this->forms[$i]['entries'] = $model_name::with('category')->get();
 
                 // Donot show all fields in the index page
-                $this->forms[$i]['fields'] = array_diff($this->forms[$i]['fields'], array('image', 'email', 'telephone', 'fax', 'email', 'location', 'city', 'state', 'zip_code'));
-                $this->forms[$i]['field_names'] = array_diff($this->forms[$i]['fields'], array('Image', 'Email', 'Telephone', 'Fax', 'Email', 'Location', 'City', 'State', 'Zip_code'));
+                $this->forms[$i]['fields'] = array_diff($this->forms[$i]['fields'], ['image', 'email', 'telephone', 'fax', 'email', 'location', 'city', 'state', 'zip_code']);
+                $this->forms[$i]['field_names'] = array_diff($this->forms[$i]['fields'], ['Image', 'Email', 'Telephone', 'Fax', 'Email', 'Location', 'City', 'State', 'Zip_code']);
             } else {
                 $this->forms[$i]['entries'] = $model_name::get();
             }
@@ -118,10 +118,10 @@ class ContactController extends BaseController {
             $redirect = "{$this->link}contact-manager/create/{$input['form_id']}";
         }
 
-        $input['location'] = json_encode(array(
+        $input['location'] = json_encode([
             'latitude'  => $input['location-lat'],
             'longitude' => $input['location-lon'],
-        ));
+        ]);
         $display_options = $this->getDisplayOptions($input);
 
         $input['display_options'] = json_encode($display_options);
@@ -216,10 +216,10 @@ class ContactController extends BaseController {
             $redirect = "{$this->link}contact-manager/create/{$input['form_id']}";
         }
 
-        $input['location'] = json_encode(array(
+        $input['location'] = json_encode([
             'latitude'  => $input['location-lat'],
             'longitude' => $input['location-lon'],
-        ));
+        ]);
 
         $display_options = $this->getDisplayOptions($input);
 
@@ -258,7 +258,7 @@ class ContactController extends BaseController {
             }
             $selected_ids = explode(' ', $selected_ids);
         } else {
-            $selected_ids = array($id);
+            $selected_ids = [$id];
         }
 
         $form = $this->getForm(Input::get('form_id'));
@@ -307,7 +307,7 @@ class ContactController extends BaseController {
             return (str_contains($key, 'display_')) ? true : false;
         });
 
-        $display_options = array();
+        $display_options = [];
 
         foreach ($display_keys as $key) {
             $name = str_replace('display_', '', $key);

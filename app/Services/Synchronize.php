@@ -185,7 +185,7 @@ class Synchronize {
             $client = $this->authorizeRemote($input);
             $request = $client
                             ->post('backend/synchronize/syncFromFile')
-                            ->addPostFields(array('current_time'=>$current_time))
+                            ->addPostFields(['current_time'=>$current_time])
                             ->addPostFile('file', $backup_file)
                             ->removeHeader('Expect')
                             ->send();
@@ -225,14 +225,14 @@ class Synchronize {
         // Add the cookie plugin to the client
         $client->addSubscriber($cookiePlugin);
 
-        $post_data = array(
+        $post_data = [
                     'username' => $input['username'],
                     'password' => $input['password'],
                     'remember' => 'checked',
                     'api'      => true,
-                );
+                ];
 
-        $response = $client->post('login/backend', array(), $post_data)->send();
+        $response = $client->post('login/backend', [], $post_data)->send();
 
         $response_json = $response->json();
         if (isset($response_json['error'])) {
@@ -394,7 +394,7 @@ class Synchronize {
              $output .= '-- Host: '.$host."\n";
              $output .= '-- Database:'.$database."\n";
              //get a list of all the tables
-             $aTables = array();
+             $aTables = [];
              $strSQL = 'SHOW TABLES';            // I put the SQL into a variable for debuggin purposes - better that "check syntax near '), "
              if (!$res_tables = $mysqli->query($strSQL))
                  throw new Exception("MySQL Error: " . $mysqli->error . 'SQL: '.$strSQL);
@@ -500,7 +500,7 @@ class Synchronize {
 
             foreach ($files as $file) {
                 // Ignore "." and ".." folders
-                if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) )
+                if( in_array(substr($file, strrpos($file, '/')+1), ['.', '..']) )
                     continue;
 
                 $file = realpath($file);

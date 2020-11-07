@@ -14,8 +14,8 @@ use Robbo\Presenter\PresentableInterface;
 class MediaEntry extends Eloquent implements PresentableInterface {
     protected $table = 'media_entries';
 
-	protected $guarded = array('id');
-    public static $rules = array();
+	protected $guarded = ['id'];
+    public static $rules = [];
 
     // Path in the public folder to upload image and its corresponding thumbnail
     public $images_path = 'uploads/media/';
@@ -26,7 +26,7 @@ class MediaEntry extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public static function create(array $attributes = array())
+    public static function create(array $attributes = [])
     {
         App::make('Components\\MediaManager\\Validation\\MediaEntryValidator')->validateForCreation($attributes);
 
@@ -40,7 +40,7 @@ class MediaEntry extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public function update(array $attributes = array(), array $options = array())
+    public function update(array $attributes = [], array $options = [])
     {
         App::make('Components\\MediaManager\\Validation\\MediaEntryValidator')->validateForUpdate($attributes);
 

@@ -47,7 +47,7 @@ class ProductPresenter extends Presenter
      */
     public function selected_categories($field = 'id')
     {
-        $ret = array();
+        $ret = [];
         foreach ($this->categories()->get() as $category) {
             $ret[] = $category->{$field};
         }

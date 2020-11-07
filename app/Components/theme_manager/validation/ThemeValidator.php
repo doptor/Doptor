@@ -17,22 +17,22 @@ class ThemeValidator extends Validator {
      * Default rules
      * @var array
      */
-    protected $rules = array(
+    protected $rules = [
         'file' => 'image|max:3000',
-    );
+    ];
 
     /**
      * Default rules for update
      * @var array
      */
-    protected $updateRules = array(
+    protected $updateRules = [
         'file' => 'image|max:3000',
-    );
+    ];
 
     /**
      * Messages for validation
      * @var array
      */
-    protected $message = array(
-    );
+    protected $message = [
+    ];
 }

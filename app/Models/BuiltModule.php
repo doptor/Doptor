@@ -12,8 +12,8 @@ Description :  Doptor is Opensource CMS.
 use Robbo\Presenter\PresentableInterface;
 
 class BuiltModule extends Eloquent implements PresentableInterface {
-    protected $fillable = array('name', 'hash', 'version', 'author', 'vendor', 'website', 'description', 'form_id', 'target', 'file', 'requires', 'table_name', 'is_author');
-    protected $guarded = array('id', 'confirmed');
+    protected $fillable = ['name', 'hash', 'version', 'author', 'vendor', 'website', 'description', 'form_id', 'target', 'file', 'requires', 'table_name', 'is_author'];
+    protected $guarded = ['id', 'confirmed'];
 
 	/**
      * The database table used by the model.
@@ -22,18 +22,18 @@ class BuiltModule extends Eloquent implements PresentableInterface {
      */
     protected $table = 'built_modules';
 
-    public static $rules = array(
+    public static $rules = [
             'name'    => 'alpha_spaces|required|unique_vendor_modulename:built_modules',
             'hash'    => 'unique:built_modules,hash',
             'version' => 'required',
             'author'  => 'required',
             'vendor'  => 'required|alpha_num',
             'target'  => 'required'
-        );
+        ];
 
-    public static $message = array(
+    public static $message = [
             'unique_vendor_modulename' => 'The combination of vendor and module name must be unique'
-        );
+        ];
 
     /**
      * Validation during create/update of modules
@@ -73,11 +73,11 @@ class BuiltModule extends Eloquent implements PresentableInterface {
      */
     public static function all_targets()
     {
-        return array(
+        return [
                 'public'  => 'Public',
                 'admin'   => 'Admin',
                 'backend' => 'Backend'
-            );
+            ];
     }
 
     public function selected_targets()

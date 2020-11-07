@@ -17,24 +17,24 @@ class LanguageValidator extends Validator {
      * Default rules
      * @var array
      */
-    protected $rules = array(
+    protected $rules = [
         'name' => 'required',
         'code' => 'required|alpha_dash'
-    );
+    ];
 
     /**
      * Default rules for update
      * @var array
      */
-    protected $updateRules = array(
+    protected $updateRules = [
         'name' => 'required',
         'code' => 'required|alpha_dash'
-    );
+    ];
 
     /**
      * Messages for validation
      * @var array
      */
-    protected $message = array(
-    );
+    protected $message = [
+    ];
 }

@@ -51,7 +51,7 @@ class MenuManagerController extends AdminController {
         try {
             $input = Input::all();
 
-            $groups = Input::get('access_groups', array());
+            $groups = Input::get('access_groups', []);
             $alias = $input['position'] . '-' . Str::slug($input['title'], '-');
             $input['alias'] = ($input['alias']=='') ? $alias : $input['alias'];
 
@@ -121,7 +121,7 @@ class MenuManagerController extends AdminController {
             $input = Input::all();
             $alias = $input['position'] . '-' . Str::slug($input['title'], '-');
             $input['alias'] = ($input['alias']=='') ? $alias : $input['alias'];
-            $groups = Input::get('access_groups', array());
+            $groups = Input::get('access_groups', []);
             // $input['parent'] = 0;   // Just for validation
 
             $validator = Menu::validate($input, $id);
@@ -202,7 +202,7 @@ class MenuManagerController extends AdminController {
             }
             $selected_ids = explode(' ', $selected_ids);
         } else {
-            $selected_ids = array($id);
+            $selected_ids = [$id];
         }
 
         foreach ($selected_ids as $id) {

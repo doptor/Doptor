@@ -42,7 +42,7 @@ class ThemeInstaller {
 
             $this->copyScreenshot();
 
-            $theme = Theme::create(array(
+            $theme = Theme::create([
                     'name'         => $this->config['name'],
                     'version'      => $this->config['version'],
                     'author'       => $this->config['author'],
@@ -51,7 +51,7 @@ class ThemeInstaller {
                     'screenshot'   => $this->screenshot,
                     'target'       => $this->target,
                     'has_settings' => $this->has_settings
-                ));
+                ]);
 
             $this->installModules();
 

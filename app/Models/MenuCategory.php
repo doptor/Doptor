@@ -19,12 +19,12 @@ class MenuCategory extends Eloquent implements PresentableInterface {
      */
     protected $table = 'menu_categories';
 
-	protected $guarded = array('id');
+	protected $guarded = ['id'];
 
-	public static $rules = array(
+	public static $rules = [
             'name'  => 'alpha_spaces|required|unique:menu_categories,name',
             'alias' => 'required|unique:menu_categories,alias'
-        );
+        ];
 
     /**
      * Relation with menus table

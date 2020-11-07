@@ -19,8 +19,8 @@ use Robbo\Presenter\PresentableInterface;
 class ContactCategory extends Eloquent implements PresentableInterface {
     protected $table = 'contact_categories';
 
-    protected $guarded = array('id');
-    public static $rules = array();
+    protected $guarded = ['id'];
+    public static $rules = [];
 
     /**
      * Relation with contacts table
@@ -35,7 +35,7 @@ class ContactCategory extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public static function create(array $attributes = array())
+    public static function create(array $attributes = [])
     {
         App::make('Components\\ContactManager\\Validation\\ContactCategoryValidator')->validateForCreation($attributes);
         $attributes['created_by'] = current_user()->id;
@@ -48,7 +48,7 @@ class ContactCategory extends Eloquent implements PresentableInterface {
      * @param array $attributes
      * @return void
      */
-    public function update(array $attributes = array(), array $options = array())
+    public function update(array $attributes = [], array $options = [])
     {
         App::make('Components\\ContactManager\\Validation\\ContactCategoryValidator')->validateForUpdate($attributes);
         $attributes['updated_by'] = current_user()->id;
@@ -94,12 +94,12 @@ class ContactCategory extends Eloquent implements PresentableInterface {
      */
     public static function all_status()
     {
-        return array(
+        return [
                 'published'   => 'Publish',
                 'unpublished' => 'Unpublish',
                 'drafted'     => 'Draft',
                 'archived'    => 'Archive'
-            );
+            ];
     }
 
     /**

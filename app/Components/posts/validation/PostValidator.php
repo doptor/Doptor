@@ -17,33 +17,33 @@ class PostValidator extends Validator {
      * Default rules
      * @var array
      */
-    protected $rules = array(
+    protected $rules = [
         'title'     => 'alpha_spaces|required',
         'permalink' => 'unique:posts,permalink',
         // 'image'     => 'image',
         // 'content'   => 'required',
         'status'    => 'required'
-    );
+    ];
 
     /**
      * Default rules for update
      * @var array
      */
-    protected $updateRules = array(
+    protected $updateRules = [
         'title'     => 'alpha_spaces|required',
         'permalink' => 'unique:posts,permalink',
         // 'image'  => 'image',
         // 'content'   => 'required',
         'status'    => 'required'
-    );
+    ];
 
     /**
      * Messages for validation
      * @var array
      */
-    protected $message = array(
+    protected $message = [
         'permalink.unique' => 'The alias has already been taken'
-    );
+    ];
 
     public function validateForCreation($input)
     {
