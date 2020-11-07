@@ -1,5 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
+use Database\Seeders\CategoryPostTableSeeder;
+use Database\Seeders\BuiltModulesTableSeeder;
+use Database\Seeders\BuiltFormsTableSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 

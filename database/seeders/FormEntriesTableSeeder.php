@@ -1,8 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
-class ReportGeneratorsTableSeeder extends Seeder {
+class FormEntriesTableSeeder extends Seeder {
 
 	/**
 	 * Auto generated seed file
@@ -11,7 +13,7 @@ class ReportGeneratorsTableSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		\DB::table('report_generators')->delete();
+		\DB::table('form_entries')->delete();
         
 	}
 

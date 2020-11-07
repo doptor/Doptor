@@ -10,6 +10,7 @@ License : GNU/GPL, visit LICENSE.txt
 Description :  Doptor is Opensource CMS.
 ===================================================
 */
+use Database\Seeders\DatabaseSeeder;
 use Artisan;
 use DB;
 use Exception;
@@ -349,7 +350,7 @@ class ModuleInstaller {
             foreach (File::files($seed_dir) as $file) {
                 require_once($file);
             }
-            $seeder = new \DatabaseSeeder;
+            $seeder = new DatabaseSeeder;
             $seeder->run();
         }
     }

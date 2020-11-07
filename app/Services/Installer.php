@@ -11,6 +11,7 @@ License : GNU/GPL, visit LICENSE.txt
 Description :  Doptor is Opensource CMS.
 ===================================================
 */
+use Database\Seeders\MenuPositionTableSeeder;
 use Artisan, App, DB, Event, Exception, Input, Str, View, Redirect, Response, Validator;
 use Group;
 use Sentry;

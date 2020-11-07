@@ -1,5 +1,6 @@
 <?php
 
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
